@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Sign up | Stock Management System
+{% endblock %}
+
+{% block content %}
+    <form action="/register" method="post">
+        <section id="hero" class="pricing">
+            <div class="container" data-aos="fade-up">
+            
+                <div class="col-lg-4 col-md-6" data-aos="zoom-im" data-aos-delay="100" style="margin: 0 auto;">
+                    <div class="box">
+
+                        <div class="section-title">
+                            <h2>Stock Management System</h2>
+                        </div>
+
+                        <div class="signup-form">
+
+                            <div class="form-group">
+                                <p style="text-align: left">Name</p>
+                                <input name="username" placeholder="Username" type="text" autocomplete="off" autofocus class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <br><p style="text-align: left">Password</p>
+                                <input name="password" placeholder="Password" type="password" class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <br><p style="text-align: left">Confirm Password</p>
+                                <input name="confirmation" placeholder="Confirm Password" type="password" class="form-control">
+                            </div>
+
+                            <div class="btn-wrap">
+                                <br><button class="btn-buy" type="submit">Sign up</button>
+                            </div>
+
+                        </div>
+                    
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+{% endblock %}

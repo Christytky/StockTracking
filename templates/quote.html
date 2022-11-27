@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Stock Quotation
+{% endblock %}
+
+{% block content %}
+    <form action="/quote" method="post">
+        <section id="hero" class="pricing">
+            <div class="container" data-aos="fade-up">
+
+                <div class="col-lg-4 col-md-6" data-aos="zoom-im" data-aos-delay="100" style="margin: 0 auto;">
+                    <div class="box">
+                        
+                        <div class="section-title">
+                            <h2>Stock Quotation</h2>
+                        </div>
+
+                        <div class="login-form">
+    
+                            <div class="form-group">
+                                <input id="getQuote" name="symbol" placeholder="Symbol" type="text" autocomplete="off" autofocus class="form-control mx-auto w-auto">
+                            </div>
+
+                            <div class="btn-wrap">
+                                <br><button class="btn-buy" type="submit">Quote</button>
+                            </div>
+                        
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+{% endblock %}

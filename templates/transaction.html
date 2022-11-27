@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Stock Transaction
+{% endblock %}
+
+{% block content %}
+        <section id="hero" class="pricing">
+            <div class="container" data-aos="fade-up">
+
+                <div class="col-lg-4 col-md-6" data-aos="zoom-im" data-aos-delay="100" style="margin: 0 auto;">
+                    <div class="box">
+                        
+                        <div class="section-title">
+                            <h2>Stock Transaction</h2>
+                        </div>
+
+                        <div class="register-link m-t-15 text-center">
+                            <br><p><a href="{{ url_for('buy') }}">Buy</a>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <a href="{{ url_for('sell') }}">Sell</a></p>
+                        </div>
+                    
+                    </div>
+                </div>
+
+            </div>
+        </section>
+{% endblock %}

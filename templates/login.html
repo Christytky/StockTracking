@@ -1,0 +1,48 @@
+{% extends 'layout.html' %}
+
+{% block title %} 
+    Login | Stock Management System
+{% endblock %}
+
+{% block content %}
+    <form action="/login" method="post">
+        <section id="hero" class="pricing">
+            <div class="container" data-aos="fade-up">
+
+                <div class="col-lg-4 col-md-6" data-aos="zoom-im" data-aos-delay="100" style="margin: 0 auto;">
+                <div class="box">
+                    <div class="section-title">
+                        <h2>Stock Management System</h2>
+                    </div>
+                    <div class="login-form">
+                        <form>
+                            <div class="form-group">
+                                <p style="text-align: left">Name</p>
+                                <input name="username" placeholder="Name" type="text" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <br><p style="text-align: left">Password</p>
+                                <input name="password" placeholder="Password" type="password" class="form-control">
+                            </div>
+                            <!-- <div class="checkbox" style="text-align: left">
+                                <label>
+                                    <br><input type="checkbox"> Remember Me
+                                </label>
+                            </div> -->
+                            <div class="btn-wrap">
+                                <br><button class="btn-buy" type="submit">Login</button>
+                                </div>
+                            <div class="register-link m-t-15 text-center">
+                                <br><p><a href="{{ url_for('register') }}">Sign up</a></p>
+                            </div>
+                            <!-- <label class="pull-right">
+                                <a href="#"  style="text-align: right">Forgot Password</a>
+                            </label> -->
+                        </form>
+                    </div>
+                </div>
+                </div>
+        </div>
+        </section>
+    </form>
+{% endblock %}

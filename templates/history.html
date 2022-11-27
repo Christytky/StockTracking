@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Transaction Record
+{% endblock %}
+
+{% block content %}
+<br><br><br><br>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Symbol</th>
+                <th>Company Name</th>
+                <th>Action</th>
+                <th>Shares</th>
+                <th>Price</th>
+                <th>Transaction Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in range(histData[2] | length) %}
+            <tr>
+                <td>{{ histData[0][i] }}</td>
+                <td>{{ histData[1][i] }}</td>
+                <td>{{ histData[2][i] }}</td>
+                <td>{{ histData[3][i] }}</td>
+                <td>{{ histData[4][i] }}</td>
+                <td>{{ histData[5][i] }}</td>
+                <td>{{ histData[6][i] }}</td>
+                <td>{{ histData[7][i] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+{% endblock %}

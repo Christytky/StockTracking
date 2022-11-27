@@ -1,0 +1,222 @@
+{% extends 'layout.html' %}
+
+{% block title %} Data Dashboard {% endblock %}
+
+{% block content %}
+<head>
+    <title>Data Dashboard</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="static/js/echarts.js"></script>
+</head>
+
+<div id="content">
+    <section id="hero" class="hero">
+        <body>
+            <br>
+            <div class="container-fluid">
+            <div class="row content">
+                
+                <br>
+                
+                <div class="col-sm-12">
+                <div class="well">
+                    <h2>Data Dashboard</h2><br>
+                    <!-- <h4>Date: {{ APIdata[3][-1] }}</h4> -->
+                    <h4>Date: 2022-11-27</h4>
+                    <h4>Time: {{ APIdata[4][-1] }}</h4>
+                </div>
+                
+                <div class="row">
+                    {% for i in range(stockSum | length) %}
+                    <div class="col-sm-3">
+                    <div class="well">
+                        <h4>{{ APIdata[0][i] }}</h4>
+                        <p>Company Name: {{ APIdata[1][i] }}</p> 
+                        <p>Current Price: {{ APIdata[2][i] }}</p> 
+                    </div>
+                    </div>
+                    {% endfor %}
+
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-3">
+                    <div class="well">
+                        <h4>Stock Distribution</h4>
+                        <canvas id="stockDist"></canvas>
+                    </div>
+                    </div>
+
+                    <div class="col-sm-7">
+                    <div class="well">
+                        <h4>Current Price Vs Purchased Price</h4>
+                        <canvas id="comparePrice"></canvas>
+                    </div>
+                    </div>
+
+                    <div class="col-sm-2">
+                    <div class="well">
+                        <h4>Stock List</h4>
+                        {% for i in range(stockSum | length) %}
+                        <br><h5>{{ stockSum[0][i] }}</h5>
+                        {% endfor %}
+                    </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                    <div class="well">
+                        <p>Alert - Profit > 10%</p> 
+                    </div>
+                    </div>
+                    <div class="col-sm-6">
+                    <div class="well">
+                        <p>Alert - Loss > 10%</p> 
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+
+            <script>
+                let stockDist = echarts.init(document.getElementById('stockDist'));
+                let comparePrice = echarts.init(document.getElementById('comparePrice'));
+
+                // stockDist
+                let option_stockDist = {              
+                    tooltip: {
+                        trigger: 'item'
+                    },
+                    legend: {
+                        top: '5%',
+                        left: 'center'
+                    },
+                    series: [
+                        {
+                        name: 'Access From',
+                        type: 'pie',
+                        radius: ['40%', '70%'],
+                        avoidLabelOverlap: false,
+                        label: {
+                            show: false,
+                            position: 'center'
+                        },
+                        emphasis: {
+                            label: {
+                            show: true,
+                            fontSize: '40',
+                            fontWeight: 'bold'
+                            }
+                        },
+                        labelLine: {
+                            show: false
+                        },
+                        // data: [
+                        //     { value: 1048, name: 'Search Engine' },
+                        //     { value: 735, name: 'Direct' }
+                        // ]
+                        data: [
+                            {value: {{ stockSum[3][0] | tojson }}, name: {{ stockSum[0][0] | tojson }}},
+                            {value: {{ stockSum[3][1] | tojson }}, name: {{ stockSum[0][1] | tojson }}},
+                            {value: {{ stockSum[3][2] | tojson }}, name: {{ stockSum[0][2] | tojson }}},
+                            {value: {{ stockSum[3][3] | tojson }}, name: {{ stockSum[0][3] | tojson }}}
+                            ]
+                        }
+                    ]
+                };
+
+                stockDist.setOption(option_stockDist);
+                stockDist.resize({
+                    width: 300,
+                    height: 250
+                });
+
+                // comparePrice
+                let option_comparePrice = { 
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                          type: 'shadow'
+                        }
+                      },
+                      legend: {
+                        data: ['Profit', 'Average Purchased Price', 'Current Price']
+                      },
+                      grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '3%',
+                        containLabel: true
+                      },
+                      xAxis: [
+                        {
+                          type: 'value'
+                        }
+                      ],
+                      yAxis: [
+                        {
+                          type: 'category',
+                          axisTick: {
+                            show: false
+                          },
+                          // data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+                          data: {{ stockSum[0] | tojson }}
+                        }
+                      ],
+                      series: [
+                        {
+                          name: 'Profit',
+                          type: 'bar',
+                          label: {
+                            show: true,
+                            position: 'inside'
+                          },
+                          emphasis: {
+                            focus: 'series'
+                          },
+                          // data: [200, 170, 240, 244, 200, 220, 210]
+                          data: {{ stockSum[4] | tojson }}
+                        },
+                        {
+                          name: 'Current Price',
+                          type: 'bar',
+                          stack: 'Total',
+                          label: {
+                            show: true
+                          },
+                          emphasis: {
+                            focus: 'series'
+                          },
+                          // data: [320, 302, 341, 374, 390, 450, 420]
+                          data: {{ stockSum[3] | tojson }}
+                        },
+                        {
+                          name: 'Average Purchased Price',
+                          type: 'bar',
+                          stack: 'Total',
+                          label: {
+                            show: true,
+                            position: 'left'
+                          },
+                          emphasis: {
+                            focus: 'series'
+                          },
+                          // data: [-120, -132, -101, -134, -190, -230, -210]
+                          data: {{ stockSum[5] | tojson }}
+                        }
+                      ]
+                };
+
+                comparePrice.setOption(option_comparePrice);
+                comparePrice.resize({
+                    width: 700,
+                    height: 250
+                });
+
+            </script>
+
+        </body>
+    </section>
+</div>
+{% endblock %}
